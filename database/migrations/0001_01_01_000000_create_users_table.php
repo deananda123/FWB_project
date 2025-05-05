@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->enum('role', ['admin', 'seniman', 'konsumen']);
+            $table->string('lokasi')->nullable(); // untuk seniman
+            $table->string('jam_operasional')->nullable(); // untuk seniman
             $table->timestamps();
         });
 
