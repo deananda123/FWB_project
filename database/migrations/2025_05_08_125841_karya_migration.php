@@ -11,26 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-       
         Schema::create('karya', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // seniman
             $table->string('judul');
-            $table->string('gambar'); // URL gambar
+            $table->string('gambar');
             $table->text('deskripsi');
             $table->decimal('harga', 10, 2);
-            $table->integer('stok');
+            $table->integer('stok')->default(1);
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // konsumen
-            $table->foreignId('karya_id')->constrained('karya')->onDelete('cascade');
-            $table->enum('status', ['pending', 'completed', 'canceled'])->default('pending');
-            $table->timestamps();
-        });
-        
         
     }
 
