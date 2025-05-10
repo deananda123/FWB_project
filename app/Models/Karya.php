@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Karya extends Model
 {
+    protected $table = 'karya';
+    protected $fillable = [
+        'user_id',
+        'judul',
+        'gambar',
+        'deskripsi',
+        'harga',
+        'stok',
+        'status',
+    ];
+    
     public function user() {
         return $this->belongsTo(User::class);
     }
