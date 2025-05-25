@@ -15,6 +15,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dash', function () {
+    return view('dash');
+});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/gallery', [AdminController::class, 'galeri'])->Middleware('auth', 'role:admin')->name('galeri');
