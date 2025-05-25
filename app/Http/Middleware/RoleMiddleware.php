@@ -11,10 +11,10 @@ class RoleMiddleware
 {
     public function handle($request, Closure $next, $role)
     {
-        if (Auth::check() && Auth::user()->role === $role) {
+        if (Auth::check() && (Auth::user()->role === $role)) {
             return $next($request);
         }
 
-        abort(403); // atau redirect ke halaman lain kalau mau
+        abort(403, 'not for u'); // atau redirect ke halaman lain kalau mau
     }
 }

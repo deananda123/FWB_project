@@ -13,15 +13,6 @@ class SenimanController extends Controller
     {
        return 'seniman';
     }
-    public function upload()
-    {
-       return view('post');
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //

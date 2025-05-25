@@ -36,26 +36,5 @@ class UserSeeder extends Seeder
             'password' => bcrypt('seniman123'),
             'role' => 'seniman',
         ]);
-
-        User::create([
-            'name' => 'Ethan Rivera',
-            'email' => 'ethan.rivera@arteka.com',
-            'password' => bcrypt('konsumen123'),
-            'role' => 'konsumen',
-        ]);
-
-        User::create([
-            'name' => 'Sofia Bennett',
-            'email' => 'sofia.bennett@arteka.com',
-            'password' => bcrypt('konsumen123'),
-            'role' => 'konsumen',
-        ]);
-
-        User::create([
-            'name' => 'Noah Kim',
-            'email' => 'noah.kim@arteka.com',
-            'password' => bcrypt('konsumen123'),
-            'role' => 'konsumen',
-        ]);
     }
 }

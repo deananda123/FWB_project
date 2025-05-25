@@ -1,84 +1,56 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Karya; 
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Tampilkan semua user
+    public function seniman()
+{
+    $users = User::where('role', '!=', 'admin')->get();
+    return view('infoUser', compact('users'));
+}
+
+
+    // Tampilkan detail user
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('infoUser', compact('user'));
+    }
+
+    // Hapus user (hard delete)
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->role === 'admin') {
+            return back()->with('error', 'Tidak bisa menghapus sesama admin.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('infouser')->with('success', 'Pengguna berhasil dihapus.');
+    }
+
+    // Optional view lainnya
     public function index()
     {
-        return 'admin';
+        return view('dashboard'); // Ganti sesuai tampilan admin utama kamu
     }
-    public function notif()
-    {
-        return view('notif');
-    }
-    public function galeri()
-    {
-        return view('galeri');
-    }
-    public function seniman()
-    {
-        return view('infoUser');
-    }
-    public function profil()
-    {
-        return view('profileUser');
-    }
+
+   public function galeri()
+{
+    $karya = Karya::all();  // ambil semua karya
+    return view('galeri', compact('karya'));  // kirim ke view dengan nama 'karya'
+}
+
     public function validasi()
     {
         return view('validasi');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

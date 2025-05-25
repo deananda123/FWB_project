@@ -8,17 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
+
+use App\Models\Profil;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user()->load('karya'); // ini penting
+        
+        return view('profileUser', compact('user'));
     }
 
     /**
@@ -26,15 +27,29 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $user->profil()->updateOrCreate(
+            [
+                'user_id' => $user->id
+            ],
+            [
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'no_telepon' => $request->input('no_telepon'),
+                'alamat' => $request->input('alamat'),
+                'jam_operasional' => $request->input('jam_operasional'),
+                'deskripsi_profil' => $request->input('deskripsi_profil'),
+            ]
+        );
+
+        return Redirect::route('profile.update')->with('status', 'profile-updated');
     }
 
     /**
