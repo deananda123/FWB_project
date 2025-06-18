@@ -1,10 +1,6 @@
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
      <!-- Brand Logo -->
-     <a href="index3.html" class="brand-link">
-         <img src="{{ asset('Admin') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-             class="brand-image img-circle elevation-3" style="opacity: .8">
-         <span class="brand-text font-weight-light">AdminLTE 3</span>
-     </a>
+
 
      <!-- Sidebar -->
      <div class="sidebar">
@@ -19,17 +15,7 @@
          </div>
 
          <!-- SidebarSearch Form -->
-         <div class="form-inline">
-             <div class="input-group" data-widget="sidebar-search">
-                 <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                     aria-label="Search">
-                 <div class="input-group-append">
-                     <button class="btn btn-sidebar">
-                         <i class="fas fa-search fa-fw"></i>
-                     </button>
-                 </div>
-             </div>
-         </div>
+
 
          <!-- Sidebar Menu -->
          <nav class="mt-2">
@@ -37,50 +23,79 @@
                  data-accordion="false">
                  <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                                   <li class="nav-item menu-open">
-                     <a href="{{ route('dashboard') }}" class="nav-link active">
-                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                         <p>
-                             Dashboard
-                         </p>
-                     </a>
-                 </li>
-               @auth
-                 @if (auth()->user()->role == 'admin')
 
-                 <li class="nav-item">
-                     <a href="{{ route('validasiKarya') }}" class="nav-link">
-                         <i class="nav-icon fas fa-edit"></i>
-                         <p>
-                             Validation
-                         </p>
-                     </a>
-                 </li>
-                 <li class="nav-item">
-                     <a href="{{ route('infouser') }}" class="nav-link">
-                         <i class="nav-icon fas fa-table"></i>
-                         <p>
-                             User
-                         </p>
-                     </a>
-                 </li>
-                  
-                 @endif
-               @endauth
-                <li class="nav-item">
-                     <a href="{{ route('galeri') }}" class="nav-link">
-                         <i class="nav-icon far fa-image"></i>
-                         <p>
-                             Gallery
-                         </p>
-                     </a>
-                 </li>
-                 <li class="nav-header">other</li>
+                 @auth
+                     @if (auth()->user()->role == 'admin')
+                         <li class="nav-item menu-open">
+                             <a href="{{ route('admin') }}" class="nav-link active">
+                                 <i class="nav-icon fas fa-tachometer-alt"></i>
+                                 <p>
+                                     Dashboard
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-header">other</li>
+                         <li class="nav-item">
+                             <a href="{{ route('validasiKarya') }}" class="nav-link">
+                                 <i class="nav-icon fas fa-edit"></i>
+                                 <p>
+                                     Validation
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{ route('infouser') }}" class="nav-link">
+                                 <i class="nav-icon fas fa-table"></i>
+                                 <p>
+                                     User
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{ route('galeri') }}" class="nav-link">
+                                 <i class="nav-icon far fa-image"></i>
+                                 <p>
+                                     Gallery
+                                 </p>
+                             </a>
+                         </li>
+                          
+                     @endif
+                 @endauth
+
                 
+
                  @auth
                      @if (auth()->user()->role == 'seniman')
+                         <li class="nav-item menu-open">
+                             <a href="{{ route('seniman') }}" class="nav-link active">
+                                 <i class="nav-icon fas fa-tachometer-alt"></i>
+                                 <p>
+                                     Dashboard
+                                 </p>
+                             </a>
+                         </li>
+                          <li class="nav-header">other</li>
                          <!-- Konten yang cuma bisa dilihat seniman -->
                          <section>
+                            
+                             <li class="nav-item">
+                                 <a href="{{ route('orders.seniman') }}" class="nav-link">
+                                     <i class="nav-icon fas fa-edit"></i>
+                                     <p>
+                                         Orders
+
+                                     </p>
+                                 </a>
+                             </li>
+                             <li class="nav-item">
+                             <a href="{{ route('karya.seniman') }}" class="nav-link">
+                                 <i class="nav-icon far fa-image"></i>
+                                 <p>
+                                     Gallery
+                                 </p>
+                             </a>
+                         </li>
                              <li class="nav-item">
                                  <a href="{{ route('seniman.upload') }}" class="nav-link">
                                      <i class="nav-icon far fa-plus-square"></i>

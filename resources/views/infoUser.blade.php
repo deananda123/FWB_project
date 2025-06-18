@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <!-- Kontainer untuk judul dan tombol sejajar -->
                             <div class="d-flex justify-content-between align-items-center">
-                                <h1 class="mb-0">Contacts</h1>
+                                <h1 class="mb-0">User Information</h1>
 
                             </div>
 
@@ -41,14 +41,14 @@
                                             <div class="row">
                                                 <div class="col-7">
                                                     <h2 class="lead"><b>{{ $user->name }}</b></h2>
-                                                    <p class="text-muted text-sm"><b>About: </b> {{ $user->bio ?? '-' }}</p>
+                                                    <p class="text-muted text-sm"><b>About: </b> {{ $user->profil->deskripsi_profil ?? '-' }}</p>
                                                     <ul class="ml-4 mb-0 fa-ul text-muted">
                                                         <li class="small"><span class="fa-li"><i
                                                                     class="fas fa-lg fa-building"></i></span> Address:
-                                                            {{ $user->address ?? 'Belum diisi' }}</li>
+                                                            {{ $user->profil->alamat ?? 'Belum diisi' }}</li>
                                                         <li class="small"><span class="fa-li"><i
                                                                     class="fas fa-lg fa-phone"></i></span> Phone #:
-                                                            {{ $user->phone ?? '-' }}</li>
+                                                            {{ $user->profil->no_telepon??'-' }}</li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-5 text-center">

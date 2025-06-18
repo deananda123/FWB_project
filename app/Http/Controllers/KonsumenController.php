@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class KonsumenController extends Controller
@@ -13,6 +14,22 @@ class KonsumenController extends Controller
     {
         return 'konsumen';
     }
+
+    // public function tampilan(){
+    //     return 'test';
+    // }
+    
+    public function dashboardKonsumen()
+    {
+        return view('welcome');
+    }
+    public function showSeniman($id)
+{
+    $user = User::with('profil', 'karya')->findOrFail($id);
+
+    return view('konsumen.profil', compact('user'));
+}
+    
 
     /**
      * Show the form for creating a new resource.

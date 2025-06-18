@@ -61,6 +61,11 @@
                                 <p class="text-muted">{{ Auth::user()->profil->alamat ?? '-' }}</p>
 
                                 <hr>
+                                <strong><i class="fas fa-phone-alt mr-1"></i>Number</strong>
+
+                                <p class="text-muted">{{ Auth::user()->profil->no_telepon ?? '-' }}</p>
+
+                                <hr>
 
 
                                 <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
@@ -74,19 +79,19 @@
                     <!-- /.col -->
                     <div class="col-md-9">
                         @if (auth()->id() == $user->id)
-                        <div class="card">
-                            <div class="card-header p-2">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#settings"
-                                            data-toggle="tab">Profile</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab">Delete</a>
-                                    </li>
-                                </ul>
-                            </div><!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item"><a class="nav-link active" href="#settings"
+                                                data-toggle="tab">Profile</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href="#delete" data-toggle="tab">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="tab-content">
+
                                         <div class="active tab-pane" id="settings">
 
                                             <form method="post" action="{{ route('profile.update') }}"
@@ -163,52 +168,67 @@
                                                 <!-- /.row -->
                                             </div>
                                         </div>
-                                   
-                                    <div class="tab-pane" id="delete">
-                                        <form method="POST" action="{{ route('profile.destroy') }}" class="mt-4">
-                                            @csrf
-                                            @method('DELETE')
 
-                                            <div class="alert alert-danger">
-                                                <strong>Peringatan:</strong> Menghapus akun bersifat permanen. Semua data
-                                                akan hilang dan tidak bisa dikembalikan.
-                                            </div>
+                                        <div class="tab-pane" id="delete">
+                                            <form method="POST" action="{{ route('profile.destroy') }}" class="mt-4">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <div class="form-group row">
-                                                <label for="password" class="col-sm-2 col-form-label">Konfirmasi
-                                                    Password</label>
-                                                <div class="col-sm-10">
-                                                    <input type="password" name="password" class="form-control"
-                                                        id="password" placeholder="Masukkan password kamu" required>
-                                                    @error('password', 'userDeletion')
-                                                        <div class="text-danger mt-1">{{ $message }}</div>
-                                                    @enderror
+                                                <div class="alert alert-danger">
+                                                    <strong>Peringatan:</strong> Menghapus akun bersifat permanen. Semua
+                                                    data
+                                                    akan hilang dan tidak bisa dikembalikan.
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group row mt-4">
-                                                <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-danger">Hapus Akun Saya</button>
+                                                <div class="form-group row">
+                                                    <label for="password" class="col-sm-2 col-form-label">Konfirmasi
+                                                        Password</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" name="password" class="form-control"
+                                                            id="password" placeholder="Masukkan password kamu" required>
+                                                        @error('password', 'userDeletion')
+                                                            <div class="text-danger mt-1">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+
+                                                <div class="form-group row mt-4">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-danger">Hapus Akun
+                                                            Saya</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <!-- /.tab-pane -->
                                     </div>
 
-                                    <!-- /.tab-pane -->
                                 </div>
-
-                            </div>
-                            <!-- /.tab-content -->
-                        </div><!-- /.card-body -->
-                         @endif
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                        @endif
                         <div class="card">
                             <div class="row">
                                 @foreach ($user->karya as $item)
                                     <div class="col-sm-4 mb-3">
                                         <img class="img-fluid" src="{{ asset('storage/' . $item->gambar) }}"
                                             alt="Karya">
+
+                                        @auth
+                                            @if (auth()->id() === $user->id)
+                                                <form action="{{ route('karya.destroy', $item->id) }}" method="POST"
+                                                    class="mt-2">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('Yakin ingin menghapus karya ini?')">Hapus</button>
+                                                </form>
+                                            @endif
+                                        @endauth
                                     </div>
                                 @endforeach
+
                             </div>
                         </div>
                     </div>

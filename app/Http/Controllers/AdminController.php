@@ -11,17 +11,10 @@ class AdminController extends Controller
     // Tampilkan semua user
     public function seniman()
 {
-    $users = User::where('role', '!=', 'admin')->get();
+    $users = User::with('profil')->where('role', '!=', 'admin')->get();
     return view('infoUser', compact('users'));
 }
 
-
-    // Tampilkan detail user
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        return view('infoUser', compact('user'));
-    }
 
     // Hapus user (hard delete)
     public function destroy($id)
@@ -38,10 +31,15 @@ class AdminController extends Controller
     }
 
     // Optional view lainnya
-    public function index()
-    {
-        return view('dashboard'); // Ganti sesuai tampilan admin utama kamu
-    }
+   public function admin()
+{
+    $jumlahKaryaPending = Karya::where('status', 'pending')->count();
+    $totalKarya = Karya::count();
+    $jumlahUser = User::where('role', '!=', 'admin')->count();
+
+    return view('dashboard', compact('jumlahKaryaPending', 'totalKarya', 'jumlahUser'));
+}
+
 
    public function galeri()
 {
@@ -50,7 +48,8 @@ class AdminController extends Controller
 }
 
     public function validasi()
-    {
-        return view('validasi');
-    }
+{
+    $karya = Karya::with('user')->latest()->get();
+    return view('validasi', compact('karya'));
+}
 }

@@ -8,7 +8,7 @@ class Karya extends Model
 {
     protected $table = 'karya';
    protected $fillable = [
-    'user_id', 'judul', 'deskripsi', 'harga', 'stok', 'gambar', 'status'
+    'user_id','kategori_id','judul', 'deskripsi', 'harga', 'stok', 'gambar', 'status'
 ];
 
     
@@ -16,9 +16,10 @@ class Karya extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function kategori() {
-        return $this->belongsToMany(Kategori::class, 'karya_kategori');
-    }
+   public function kategoris() {
+    return $this->belongsToMany(Kategori::class, 'karya_kategori');
+}
+
     
     public function orders() {
         return $this->hasMany(Order::class);

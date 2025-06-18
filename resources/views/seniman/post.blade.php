@@ -10,8 +10,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Form</li>
+                            <li class="breadcrumb-item"><a href="{{route("seniman")}}">Home</a></li>
+                            <li class="breadcrumb-item active">Upload</li>
                         </ol>
                     </div>
                 </div>
@@ -29,6 +29,15 @@
                             <div class="card-header">
                                 <h3 class="card-title">Quick Example</h3>
                             </div>
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show mx-3 mt-3" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
                             <!-- /.card-header -->
                             <!-- form start -->
                             @if ($errors->any())
@@ -60,6 +69,18 @@
                                         <input type="number" class="form-control" id="harga" name="harga"
                                             placeholder="Harga karya">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="kategori">Kategori Karya</label><br>
+                                        @foreach ($kategoris as $kategori)
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" name="kategori[]"
+                                                    value="{{ $kategori->id }}" id="kategori{{ $kategori->id }}">
+                                                <label class="form-check-label"
+                                                    for="kategori{{ $kategori->id }}">{{ $kategori->nama }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
 
                                     {{-- stok default ke 1 (atau bisa input manual kalau mau) --}}
                                     <input type="hidden" name="stok" value="1">
