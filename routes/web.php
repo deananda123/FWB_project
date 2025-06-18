@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 Route::middleware(['auth', 'role:seniman'])->prefix('seniman')->group(function () {
     Route::get('/tampilseniman', [SenimanController::class, 'dashboard'])->name('seniman');
     Route::get('/karya/upload', [KaryaController::class, 'upload'])->name('seniman.upload');
