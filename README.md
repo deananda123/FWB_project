@@ -27,8 +27,7 @@
   <li>Login & Register</li>
   <li>Upload Karya: Gambar, judul, harga, dan deskripsi</li>
   <li>Lihat daftar karya sendiri</li>
-  <li>Edit/Hapus karya (jika belum disetujui admin)</li>
-  <li>Lihat profil konsumen</li>
+  <li>Hapus karya (jika belum disetujui admin)</li>
   <li>Lihat order masuk dan konfirmasi jika deal</li>
 </ul>
 
